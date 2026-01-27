@@ -65,6 +65,13 @@ export const AudioTourPage: FC = () => {
     }
   }, [tourId]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [stepNumber]);
+
   if (loading) {
     return (
       <Page back={true}>
