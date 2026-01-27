@@ -12,8 +12,8 @@
 }
 
 .text__hometext {
-  color: #fefefe;
-  font-size: 16px;
+  color: #000000;
+  font-size: 14px;
   font-weight: 300;
   /* margin: 8px 0 0; */
   white-space: pre-line;
@@ -22,6 +22,11 @@
 .text--clickable {
   cursor: pointer;
   transition: opacity 0.2s;
+}
+
+.text--clickable .text__text {
+  text-decoration: underline dashed;
+  text-underline-offset: 3px;
 }
 
 .text--clickable:hover {

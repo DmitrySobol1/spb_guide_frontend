@@ -1,8 +1,8 @@
 import { useState, useEffect, type FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { shareURL } from '@tma.js/sdk-react';
 import axios from '@/axios';
 import { CircularProgress } from '@mui/material';
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 
 import { Page } from '@/components/Page.tsx';
 // import { Header } from '@/components/Header/Header.tsx';
@@ -44,6 +44,7 @@ export const AudioTourPage: FC = () => {
 
   const [steps, setSteps] = useState<AudioTourStep[]>([]);
   const [loading, setLoading] = useState(true);
+  const [copiedPodStep, setCopiedPodStep] = useState<number | null>(null);
 
   const currentStepNum = Number(stepNumber) || 1;
 
@@ -100,6 +101,16 @@ export const AudioTourPage: FC = () => {
     navigate(`/audio-tour/${tourId}/${currentStepNum + 1}`);
   };
 
+  const handleCopyToClipboard = async (text: string, podstepNumber: number) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedPodStep(podstepNumber);
+      setTimeout(() => setCopiedPodStep(null), 3000);
+    } catch (error) {
+      console.error('Ошибка копирования в буфер обмена:', error);
+    }
+  };
+
   const sortedPodSteps = [...currentStep.pod_steps].sort(
     (a, b) => a.podstepNumber - b.podstepNumber,
   );
@@ -139,14 +150,27 @@ export const AudioTourPage: FC = () => {
             )}
             
             {podStep.descriptionPodStep && (
-              <Text
-                text={podStep.descriptionPodStep}
-                isClickable={podStep.isClickable}
-                onClick={podStep.isClickable && podStep.linkClickable
-                  ? () => shareURL(podStep.linkClickable!, podStep.titlePodStep || 'Локация на карте')
-                  : undefined
-                }
-              />
+              <>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                  {podStep.isClickable && (
+                    <ContentCopyOutlinedIcon
+                      sx={{ fontSize: 20, color: '#666', cursor: 'pointer', marginTop: '2px' }}
+                      onClick={() => handleCopyToClipboard(podStep.descriptionPodStep!, podStep.podstepNumber)}
+                    />
+                  )}
+                  <Text
+                    text={podStep.descriptionPodStep}
+                    isClickable={podStep.isClickable}
+                    onClick={podStep.isClickable
+                      ? () => handleCopyToClipboard(podStep.descriptionPodStep!, podStep.podstepNumber)
+                      : undefined
+                    }
+                  />
+                </div>
+                {podStep.isClickable && copiedPodStep === podStep.podstepNumber && (
+                  <Text hometext={'Адрес скопирован. Можно вставить в навигатор'}></Text>
+                )}
+              </>
             )}
 
             {podStep.type === 'img' && podStep.src && (
@@ -187,14 +211,27 @@ export const AudioTourPage: FC = () => {
             
 
             {podStep.description2PodStep && (
-              <Text
-                text={podStep.description2PodStep}
-                isClickable={podStep.isClickable}
-                onClick={podStep.isClickable && podStep.linkClickable
-                  ? () => shareURL(podStep.linkClickable!, podStep.titlePodStep || 'Локация на карте')
-                  : undefined
-                }
-              />
+              <>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                  {podStep.isClickable && (
+                    <ContentCopyOutlinedIcon
+                      sx={{ fontSize: 20, color: '#666', cursor: 'pointer', marginTop: '2px' }}
+                      onClick={() => handleCopyToClipboard(podStep.description2PodStep!, podStep.podstepNumber)}
+                    />
+                  )}
+                  <Text
+                    text={podStep.description2PodStep}
+                    isClickable={podStep.isClickable}
+                    onClick={podStep.isClickable
+                      ? () => handleCopyToClipboard(podStep.description2PodStep!, podStep.podstepNumber)
+                      : undefined
+                    }
+                  />
+                </div>
+                {podStep.isClickable && copiedPodStep === podStep.podstepNumber && (
+                  <Text hometext={'Адрес скопирован. Можно вставить в навигатор'}></Text>
+                )}
+              </>
             )}
           </SectionPage>
         ))}
