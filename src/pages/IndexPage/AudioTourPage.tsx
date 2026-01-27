@@ -1,6 +1,6 @@
 import { useState, useEffect, type FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { openLink } from '@tma.js/sdk-react';
+import { shareURL } from '@tma.js/sdk-react';
 import axios from '@/axios';
 import { CircularProgress } from '@mui/material';
 
@@ -143,7 +143,7 @@ export const AudioTourPage: FC = () => {
                 text={podStep.descriptionPodStep}
                 isClickable={podStep.isClickable}
                 onClick={podStep.isClickable && podStep.linkClickable
-                  ? () => openLink(podStep.linkClickable!)
+                  ? () => shareURL(podStep.linkClickable!, podStep.titlePodStep || 'Локация на карте')
                   : undefined
                 }
               />
@@ -191,7 +191,7 @@ export const AudioTourPage: FC = () => {
                 text={podStep.description2PodStep}
                 isClickable={podStep.isClickable}
                 onClick={podStep.isClickable && podStep.linkClickable
-                  ? () => openLink(podStep.linkClickable!)
+                  ? () => shareURL(podStep.linkClickable!, podStep.titlePodStep || 'Локация на карте')
                   : undefined
                 }
               />
