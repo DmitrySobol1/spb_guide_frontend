@@ -1,18 +1,19 @@
 .header {
   text-align: left;
-  padding: 54px 16px 70px;
+  /* padding: 54px 16px 70px; */
+  padding: 0;
 }
 
 .header__title {
-  color: #4ade80;
-  font-size: 38px;
-  font-weight: 700;
+  color: #000000;
+  font-size: 30px;
+  font-weight: 600;
   margin: 0;
 }
 
 .header__subtitle {
-  color: #ffffff;
+  color: #000000;
   font-size: 20px;
-  font-weight: 500;
-  margin: 8px 0 0;
+  font-weight: 400;
+  /* margin: 8px 0 0; */
 }

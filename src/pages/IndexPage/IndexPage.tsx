@@ -7,37 +7,46 @@ import { Page } from '@/components/Page.tsx';
 import { Card } from '@/components/Card/Card.tsx';
 import { Header } from '@/components/Header/Header.tsx';
 import { CardList } from '@/components/CardList/CardList.tsx';
+import { Page_my } from '@/components/Page_my/Page_my.tsx';
+import { SectionPage } from '@/components/SectionPage/SectionPage.tsx';
+import { AlertMessage } from '@/components/AlertMessage/AlertMessage.tsx';
 
 import { TabbarMenu } from '../../components/TabbarMenu/TabbarMenu.tsx';
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-interface CourseType {
+interface AudioTour {
   _id: string;
-  name: string;
-  description?: string;
+  title: string;
+  shortDescription?: string;
+  longDescription?: string;
+  access: 'free' | 'payment';
+  isAvailable: boolean;
   orderNumber: number;
-  color?: string;
+  timeQty?: number;
+  imgMainTour?: string;
 }
 
 export const IndexPage: FC = () => {
   const navigate = useNavigate();
-  const [courseTypes, setCourseTypes] = useState<CourseType[]>([]);
+  const [audioTours, setAudioTours] = useState<AudioTour[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    const fetchCourseTypes = async () => {
+    const fetchAudioTours = async () => {
       try {
-        const { data } = await axios.get('/courseTypes');
-        setCourseTypes(data);
+        const { data } = await axios.get('/audioTours');
+        setAudioTours(data);
       } catch (error) {
-        console.error('Ошибка при загрузке courseTypes:', error);
+        console.error('Ошибка при загрузке audioTours:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCourseTypes();
+    fetchAudioTours();
   }, []);
 
   if (loading) {
@@ -59,28 +68,51 @@ export const IndexPage: FC = () => {
 
   return (
     <Page back={false}>
-      <div style={{ marginBottom: 100}}>
-      <Header title="Easy dev" subtitle="про разработку для «не кодеров»" />
-      <CardList>
-        {courseTypes.map((item) => (
-          <Card
-            key={item._id}
-            title={item.name}
-            subtitle={item.description || ''}
-            badge={{
-              isShown: true,
-              text: <ArrowForwardIcon sx={{ fontSize: 18 }} />,
-              color: item.color || '#e0e0e0',
-            }}
-            onClick={() =>
-              navigate(`/course-list_page/${item._id}`, {
-                state: { courseTypeName: item.name },
-              })
-            }
-          />
-        ))}
-      </CardList>
-</div>
+      <AlertMessage
+        show={showAlert}
+        message="экскурсия не доступна в данный момент"
+        variant="error"
+        showButton={false}
+      />
+      <Page_my>
+        <SectionPage>
+          <Header title="Аудио туры" subtitle="изучи город в онлайн режиме" />
+        </SectionPage>
+
+        <SectionPage>
+          <CardList>
+            {audioTours.map((tour) => (
+              <Card
+                key={tour._id}
+                image={tour.imgMainTour}
+                title={tour.title}
+                subtitle='подробнее'
+                // subtitle={tour.shortDescription || ''}
+                isAccordion
+                accordionContent={
+                  <>
+                    <div>{tour.shortDescription}</div>
+                    <div style={{ marginTop: 8 }}>{tour.longDescription}</div>
+                  </>
+                }
+                badge={{
+                  isShown: true,
+                  text: tour.isAvailable ? <ArrowForwardIcon sx={{ fontSize: 18 }} /> : <LockOutlinedIcon sx={{ fontSize: 18 }} />,
+                  color: tour.isAvailable ? '#eaecfe' : '#ff5252',
+                }}
+                onClick={() => {
+                  if (tour.isAvailable === false) {
+                    setShowAlert(true);
+                    setTimeout(() => setShowAlert(false), 3000);
+                  } else {
+                    navigate(`/audio-tour/${tour._id}/1`);
+                  }
+                }}
+              />
+            ))}
+          </CardList>
+        </SectionPage>
+      </Page_my>
       <TabbarMenu />
     </Page>
   );

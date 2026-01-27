@@ -1,55 +1,53 @@
 import { useState, useEffect, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '@/axios';
+import { CircularProgress } from '@mui/material';
 
 import { Page } from '@/components/Page.tsx';
 import { Card } from '@/components/Card/Card.tsx';
-import { Header2 } from '@/components/Header2/Header2.tsx';
+import { Header } from '@/components/Header/Header.tsx';
 import { CardList } from '@/components/CardList/CardList.tsx';
+import { Page_my } from '@/components/Page_my/Page_my.tsx';
+import { SectionPage } from '@/components/SectionPage/SectionPage.tsx';
+import { AlertMessage } from '@/components/AlertMessage/AlertMessage.tsx';
 
 import { TabbarMenu } from '../../components/TabbarMenu/TabbarMenu.tsx';
 
-import Inventory2Icon from '@mui/icons-material/Inventory2';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { CircularProgress } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-interface StockItem {
+interface AudioTour {
   _id: string;
   title: string;
-  subtitle?: string;
   shortDescription?: string;
   longDescription?: string;
-  text1?: string;
-  text2?: string;
+  access: 'free' | 'payment';
+  isAvailable: boolean;
   orderNumber: number;
+  timeQty?: number;
+  imgMainTour?: string;
 }
 
 export const StockPage: FC = () => {
   const navigate = useNavigate();
-  const [stockItems, setStockItems] = useState<StockItem[]>([]);
-  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const [audioTours, setAudioTours] = useState<AudioTour[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    const fetchStock = async () => {
+    const fetchAudioTours = async () => {
       try {
-        const { data } = await axios.get('/stock');
-        if (Array.isArray(data)) {
-          setStockItems(data);
-        }
+        const { data } = await axios.get('/audioTours');
+        setAudioTours(data);
       } catch (error) {
-        console.error('Ошибка при загрузке stock:', error);
+        console.error('Ошибка при загрузке audioTours:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchStock();
+    fetchAudioTours();
   }, []);
-
-  const handleToggle = (id: string) => {
-    setOpenAccordion(openAccordion === id ? null : id);
-  };
 
   if (loading) {
     return (
@@ -70,41 +68,14 @@ export const StockPage: FC = () => {
 
   return (
     <Page back={false}>
-      <Header2
-        title="Хранилище"
-        icon={<Inventory2Icon sx={{ color: '#4ade80', fontSize: 24 }} />}
-      />
+      
+      <Page_my>
+        <SectionPage>
+          <Header title="Запись на экскурсии" subtitle="запись на оффлайн экскурсии" />
+        </SectionPage>
 
-      {stockItems.length === 0 ? (
-        <p style={{ color: '#888', textAlign: 'center', marginTop: '20px' }}>
-          Записи ещё не добавлены
-        </p>
-      ) : (
-        <CardList>
-          {stockItems.map((item) => (
-            <Card
-              key={item._id}
-              title={item.title}
-              subtitle={item.shortDescription || ''}
-              badge={{
-                isShown: true,
-                text: <ArrowForwardIcon sx={{ fontSize: 18 }} />,
-                color: '#4ade80',
-              }}
-              isAccordion={true}
-              accordionContent={
-                <p style={{ whiteSpace: 'pre-line' }}>
-                  {item.longDescription}
-                </p>
-              }
-              isOpen={openAccordion === item._id}
-              onToggle={() => handleToggle(item._id)}
-              onClick={() => navigate(`/stock_item/${item._id}`)}
-            />
-          ))}
-        </CardList>
-      )}
-
+       
+      </Page_my>
       <TabbarMenu />
     </Page>
   );

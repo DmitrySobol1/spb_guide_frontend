@@ -1,0 +1,49 @@
+.step-navigation {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 0;
+  margin-bottom: 16px;
+}
+
+.step-navigation__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: #eaecfe;
+  /* color: #e75208; */
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.step-navigation__item:hover {
+  background-color: #ffffff;
+  transform: scale(1.05);
+}
+
+.step-navigation__item--active {
+  background-color: #23334d;
+  color: #ffffff;
+}
+
+.step-navigation__item--active:hover {
+  background-color: #ffffff;
+  color: #23334d;
+}
+
+.step-navigation__number {
+  font-size: 16px;
+  font-weight: 600;
+  color: #23334d;
+}
+
+.step-navigation__item--active .step-navigation__number {
+  color: #ffffff;
+}
+
+.step-navigation__item--active:hover .step-navigation__number {
+  color: #23334d;
+}

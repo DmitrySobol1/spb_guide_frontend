@@ -10,6 +10,7 @@ import { MyAccountMainPage } from '@/pages/MyAccount/MyAccountMainPage';
 import { FavoritesLessonsPage } from '@/pages/FavoritesLessons/FavoritesLessons';
 import { StockPage } from '@/pages/Stock/Stock';
 import { StockItemPage } from '@/pages/Stock/StockItemPage';
+import { AudioTourPage } from '@/pages/IndexPage/AudioTourPage';
 
 
 interface Route {
@@ -30,4 +31,5 @@ export const routes: Route[] = [
   { path: '/favorites-lessons_page', Component: FavoritesLessonsPage },
   { path: '/stock_page', Component: StockPage },
   { path: '/stock_item/:stockId', Component: StockItemPage },
+  { path: '/audio-tour/:tourId/:stepNumber', Component: AudioTourPage },
 ];

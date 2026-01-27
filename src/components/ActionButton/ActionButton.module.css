@@ -1,0 +1,21 @@
+.button {
+  width: 100%;
+  padding: 18px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  color: white;
+  background-color: #1e3a5f;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #2d4a6f;
+}
+
+.button:active {
+  background-color: #152d4a;
+}

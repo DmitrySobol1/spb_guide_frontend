@@ -1,9 +1,9 @@
 {
-  "name": "anyaiapi",
+  "name": "spb_guide",
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://DmitrySobol1.github.io/anyaiapi",
+  "homepage": "https://DmitrySobol1.github.io/spb_guide",
   "scripts": {
     "deploy": "gh-pages -d dist",
     "dev": "vite",

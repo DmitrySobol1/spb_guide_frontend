@@ -9,6 +9,7 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import './Card.css';
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 const [b, e] = bem('card');
 
 interface BadgeProps {
@@ -33,6 +34,7 @@ interface CardProps {
   isFavorite?: boolean;
   onFavoriteAdd?: () => void;
   onFavoriteRemove?: () => void;
+  image?: string;
 }
 
 export const Card: FC<CardProps> = ({
@@ -41,7 +43,7 @@ export const Card: FC<CardProps> = ({
   lessonsQty,
   isLearned,
   badge,
-  color = '#202020',
+  color = '#23334d',
   onClick,
   isAccordion = false,
   accordionContent,
@@ -50,6 +52,7 @@ export const Card: FC<CardProps> = ({
   isFavorite,
   onFavoriteAdd,
   onFavoriteRemove,
+  image,
 }) => {
   const [isOpenInternal, setIsOpenInternal] = useState(false);
 
@@ -97,15 +100,20 @@ export const Card: FC<CardProps> = ({
     : isRecordingContent
       ? '#ff9800'
       : isOpen && isAccordion
-        ? '#4ade80'
+        ? '#23334d'
         : (badge?.color || '#c8e6c9'); 
 
   return (
     <div
-      className={`${b()} ${isOpen ? 'card--open' : ''}`}
+      className={`${b()} ${isOpen ? 'card--open' : ''} ${image ? 'card--with-image' : ''}`}
       style={{ backgroundColor: color, cursor: 'pointer' }}
       onClick={handleCardClick}
     >
+      {image && (
+        <div className={e('image-wrapper')}>
+          <img src={image} alt={title} className={e('image')} />
+        </div>
+      )}
       <div className={e('header')}>
         <div className={e('content')}>
           <div className={e('title')}>
@@ -139,7 +147,7 @@ export const Card: FC<CardProps> = ({
                   fontSize: 20,
                   transition: 'transform 0.3s ease, color 0.3s ease',
                   transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                  color: isOpen ? '#000000' : '#4ade80',
+                  color: isOpen ? '#000000' : '#ffffff',
                 }}
               />
             )}
@@ -173,7 +181,7 @@ export const Card: FC<CardProps> = ({
                 className={`${e('open-button')} ${isPaidContent ? 'card__open-button--paid' : ''} ${isRecordingContent ? 'card__open-button--recording' : ''}`}
                 onClick={handleBadgeClick}
               >
-                Открыть {!isPaidContent && !isRecordingContent && <ArrowForwardIcon sx={{ fontSize: 18 }} />}
+                Открыть {isPaidContent ? <LockOutlinedIcon sx={{ fontSize: 18 }} /> : !isRecordingContent && <ArrowForwardIcon sx={{ fontSize: 18 }} />}
               </button>
             )}
             {(onFavoriteAdd || onFavoriteRemove) && (

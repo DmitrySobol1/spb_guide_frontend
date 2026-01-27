@@ -1,13 +1,13 @@
 .text {
   text-align: left;
-  padding: 5px 16px 20px;
+  /* padding: 5px 16px 20px; */
 }
 
 .text__text {
-  color: #ffffff;
+  color: #000000;
   font-size: 16px;
-  font-weight: 300;
-  margin: 8px 0 0;
+  font-weight: 400;
+  /* margin: 8px 0 0; */
   white-space: pre-line;
 }
 
@@ -15,6 +15,6 @@
   color: #fefefe;
   font-size: 16px;
   font-weight: 300;
-  margin: 8px 0 0;
+  /* margin: 8px 0 0; */
   white-space: pre-line; 
 }

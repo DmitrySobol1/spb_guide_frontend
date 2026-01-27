@@ -1,0 +1,7 @@
+.page-my {
+  padding: 16px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

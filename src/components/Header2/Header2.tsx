@@ -14,7 +14,7 @@ export const Header2: FC<Header2Props> = ({ title, subtitle, icon }) => {
         {icon && <span className="header2__icon">{icon}</span>}
         <h1 className="header__title2">{title}</h1>
       </div>
-      <p className="header__subtitle2">{subtitle}</p>
+      <div className="header__subtitle2">{subtitle}</div>
     </div>
   );
 };

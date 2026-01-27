@@ -3,9 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 
 import PersonIcon from '@mui/icons-material/Person';
-import GridViewIcon from '@mui/icons-material/GridView';
+import HeadphonesOutlined from '@mui/icons-material/HeadphonesOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
+import CalendarMonthOutlined from '@mui/icons-material/CalendarMonthOutlined';
 
 import { ROUTES } from '@/constants/routes.ts';
 import './TabbarMenu.css';
@@ -16,9 +16,9 @@ export const TabbarMenu: FC = () => {
 
   const tabs = useMemo(
     () => [
-      { id: 1, Icon: GridViewIcon, path: ROUTES.INDEX },
+      { id: 1, Icon: HeadphonesOutlined, path: ROUTES.INDEX },
       { id: 2, Icon: FavoriteIcon, path: ROUTES.FAVORITES_LESSONS },
-      { id: 3, Icon: Inventory2Icon, path: ROUTES.STOCK },
+      { id: 3, Icon: CalendarMonthOutlined, path: ROUTES.STOCK },
       { id: 4, Icon: PersonIcon, path: ROUTES.MY_ACCOUNT },
     ],
     []

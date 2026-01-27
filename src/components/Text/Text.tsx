@@ -10,8 +10,8 @@ interface TextProps {
 export const Text: FC<TextProps> = ({ text, hometext, padding }) => {
   return (
     <div className="text" style={padding ? { padding } : undefined}>
-      <h1 className="text__text">{text}</h1>
-      <h1 className="text__hometext">{hometext}</h1>
+      <div className="text__text">{text}</div>
+      <div className="text__hometext">{hometext}</div>
     </div>
   );
 };
