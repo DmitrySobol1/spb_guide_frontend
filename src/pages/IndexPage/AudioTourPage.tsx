@@ -13,7 +13,6 @@ import { StepNavigation } from '@/components/StepNavigation/StepNavigation.tsx';
 import { Page_my } from '@/components/Page_my/Page_my.tsx';
 import { TabbarMenu } from '../../components/TabbarMenu/TabbarMenu.tsx';
 import { SectionPage } from '@/components/SectionPage/SectionPage.tsx';
-import { WrapperTour } from '@/components/WrapperTour/WrapperTour.tsx';
 
 interface PodStep {
   type: 'text' | 'img' | 'audio' | 'video';
@@ -33,11 +32,6 @@ interface AudioTourStep {
   pod_steps: PodStep[];
 }
 
-interface AudioTour {
-  _id: string;
-  title: string;
-}
-
 export const AudioTourPage: FC = () => {
   const { tourId, stepNumber } = useParams<{
     tourId: string;
@@ -46,7 +40,6 @@ export const AudioTourPage: FC = () => {
   const navigate = useNavigate();
 
   const [steps, setSteps] = useState<AudioTourStep[]>([]);
-  const [tour, setTour] = useState<AudioTour | null>(null);
   const [loading, setLoading] = useState(true);
 
   const currentStepNum = Number(stepNumber) || 1;
@@ -54,15 +47,8 @@ export const AudioTourPage: FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [stepsRes, toursRes] = await Promise.all([
-          axios.get(`/audioTourSteps/${tourId}`),
-          axios.get('/audioTours'),
-        ]);
-        setSteps(stepsRes.data);
-        const currentTour = toursRes.data.find(
-          (t: AudioTour) => t._id === tourId,
-        );
-        setTour(currentTour || null);
+        const { data } = await axios.get(`/audioTourSteps/${tourId}`);
+        setSteps(data);
       } catch (error) {
         console.error('Ошибка при загрузке данных аудиотура:', error);
       } finally {
@@ -143,8 +129,8 @@ export const AudioTourPage: FC = () => {
 
         
 
-        {sortedPodSteps.map((podStep, index) => (
-          <SectionPage>
+        {sortedPodSteps.map((podStep) => (
+          <SectionPage key={podStep.podstepNumber}>
             {podStep.titlePodStep && (
               <Title text={podStep.titlePodStep} />
             )}
