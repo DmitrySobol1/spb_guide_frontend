@@ -21,6 +21,8 @@ interface PodStep {
   description2PodStep?: string;
   src?: string;
   podstepNumber: number;
+  isClickable?: boolean;
+  linkClickable?: string;
 }
 
 interface AudioTourStep {
@@ -136,8 +138,14 @@ export const AudioTourPage: FC = () => {
             )}
             
             {podStep.descriptionPodStep && (
-              <Text text={podStep.descriptionPodStep}></Text>
-              
+              <Text
+                text={podStep.descriptionPodStep}
+                isClickable={podStep.isClickable}
+                onClick={podStep.isClickable && podStep.linkClickable
+                  ? () => window.open(podStep.linkClickable, '_blank')
+                  : undefined
+                }
+              />
             )}
 
             {podStep.type === 'img' && podStep.src && (
@@ -178,8 +186,14 @@ export const AudioTourPage: FC = () => {
             
 
             {podStep.description2PodStep && (
-              
-              <Text text={podStep.description2PodStep}></Text>
+              <Text
+                text={podStep.description2PodStep}
+                isClickable={podStep.isClickable}
+                onClick={podStep.isClickable && podStep.linkClickable
+                  ? () => window.open(podStep.linkClickable, '_blank')
+                  : undefined
+                }
+              />
             )}
           </SectionPage>
         ))}
