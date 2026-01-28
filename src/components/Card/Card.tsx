@@ -156,7 +156,7 @@ export const Card: FC<CardProps> = ({
             </div>
           )}
         </div>
-        {isAccordion && !isOpen && (
+        {isAccordion && (
           <button
             className={e('details-button')}
             onClick={(e) => {
@@ -164,8 +164,14 @@ export const Card: FC<CardProps> = ({
               handleToggleAccordion();
             }}
           >
-            подробнее
-            <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
+            {isOpen ? 'скрыть' : 'подробнее'}
+            <KeyboardArrowDownIcon
+              sx={{
+                fontSize: 18,
+                transition: 'transform 0.3s ease',
+                transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+              }}
+            />
           </button>
         )}
         {badge?.isShown && (
