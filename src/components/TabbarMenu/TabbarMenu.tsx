@@ -17,8 +17,8 @@ export const TabbarMenu: FC = () => {
   const tabs = useMemo(
     () => [
       { id: 1, Icon: HeadphonesOutlined, path: ROUTES.INDEX },
-      { id: 2, Icon: FavoriteIcon, path: ROUTES.INDEX },
-      { id: 3, Icon: CalendarMonthOutlined, path: ROUTES.INDEX },
+      { id: 2, Icon: FavoriteIcon, path: ROUTES.RECOMENDATIONS },
+      { id: 3, Icon: CalendarMonthOutlined, path: ROUTES.CALENDAR },
       { id: 4, Icon: PersonIcon, path: ROUTES.INDEX },
     ],
     []

@@ -16,23 +16,34 @@ export const Onboarding: FC = () => {
   return (
     <Page back={false}>
       <div className={styles.container}>
+
+         <div className={styles.content}>
+          {/* <h1 className={styles.titleMarck}>
+            Добро пожаловать в<br />Санкт-Петербург!
+          </h1> */}
+          <h1 className={styles.titleCaveat}>
+            Добро пожаловать в<br />Санкт-Петербург!
+          </h1>
+
+          <ActionButton className={styles.button} onClick={handleStart}>
+          Начать путешествие
+        </ActionButton>
+
+        </div>  
+
+        
+
         <div className={styles.imageWrapper}>
           <img
-            src="/assets/tours/spb2.jpg"
+            src="/assets/onboarding/onboarding_page.png"
             alt="Санкт-Петербург"
             className={styles.mainImage}
           />
         </div>
 
-        <div className={styles.content}>
-          <h1 className={styles.title}>
-            Добро пожаловать в<br />Санкт-Петербург!
-          </h1>
-        </div>
+       
 
-        <ActionButton className={styles.button} onClick={handleStart}>
-          Начать путешествие
-        </ActionButton>
+        
       </div>
     </Page>
   );

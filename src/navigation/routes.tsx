@@ -3,6 +3,8 @@ import type { ComponentType, JSX } from 'react';
 import { IndexPage } from '@/pages/IndexPage/IndexPage';
 import { Onboarding } from '@/pages/Onboarding/Onboarding';
 import { EnterPage } from '@/pages/EnterPage/EnterPage';
+import { RecomendationsPage } from '@/pages/Recomendations/Recomendations';
+import { CalendarPage } from '@/pages/Calendar/Calendar';
 import { CourseListPage } from '@/pages/CourseListPage/CourseListPage';
 import { LessonListPage } from '@/pages/LessonListPage/LessonListPage';
 import { LessonPage } from '@/pages/LessonPage/LessonPage';
@@ -21,6 +23,8 @@ export const routes: Route[] = [
   { path: '/', Component: EnterPage },
   { path: '/index', Component: IndexPage },
   { path: '/onboarding', Component: Onboarding },
+  { path: '/recomendations', Component: RecomendationsPage },
+  { path: '/calendar', Component: CalendarPage },
   { path: '/course-list_page/:typeId', Component: CourseListPage },
   { path: '/lessons/:courseId', Component: LessonListPage },
   { path: '/lesson/:lessonId', Component: LessonPage },

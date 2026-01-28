@@ -33,6 +33,7 @@ export const IndexPage: FC = () => {
   const [audioTours, setAudioTours] = useState<AudioTour[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
+  const [openTourId, setOpenTourId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAudioTours = async () => {
@@ -72,7 +73,7 @@ export const IndexPage: FC = () => {
         show={showAlert}
         message="экскурсия не доступна в данный момент"
         variant="error"
-        showButton={false}
+        showButton={false} 
       />
       <Page_my>
         <SectionPage>
@@ -87,6 +88,10 @@ export const IndexPage: FC = () => {
                 image={tour.imgMainTour}
                 title={tour.title}
                 isAccordion
+                isOpen={openTourId === tour._id}
+                onToggle={() => {
+                  setOpenTourId(openTourId === tour._id ? null : tour._id);
+                }}
                 accordionContent={
                   <>
                     <div>{tour.shortDescription}</div>
