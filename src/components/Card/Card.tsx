@@ -25,7 +25,6 @@ interface CardProps {
   lessonsQty?: number;
   isLearned?: boolean;
   badge?: BadgeProps;
-  color?: string;
   onClick?: () => void;
   isAccordion?: boolean;
   accordionContent?: ReactNode;
@@ -43,7 +42,6 @@ export const Card: FC<CardProps> = ({
   lessonsQty,
   isLearned,
   badge,
-  color = '#23334d',
   onClick,
   isAccordion = false,
   accordionContent,
@@ -106,7 +104,7 @@ export const Card: FC<CardProps> = ({
   return (
     <div
       className={`${b()} ${isOpen ? 'card--open' : ''} ${image ? 'card--with-image' : ''}`}
-      style={{ backgroundColor: color, cursor: 'pointer' }}
+      style={{ cursor: 'pointer' }}
       onClick={handleCardClick}
     >
       {image && (
@@ -140,14 +138,14 @@ export const Card: FC<CardProps> = ({
           )}
           <div className={`${e('subtitle')} ${isAccordion ? 'card__subtitle--clickable' : ''}`}>
             {subtitle}
-            {isAccordion && (
+            {isAccordion && subtitle && (
               <KeyboardArrowDownIcon
                 className={e('arrow')}
                 sx={{
                   fontSize: 20,
-                  transition: 'transform 0.3s ease, color 0.3s ease',
+                  transition: 'transform 0.3s ease',
                   transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                  color: isOpen ? '#000000' : '#ffffff',
+                  color: '#666666',
                 }}
               />
             )}
@@ -158,10 +156,23 @@ export const Card: FC<CardProps> = ({
             </div>
           )}
         </div>
+        {isAccordion && !isOpen && (
+          <button
+            className={e('details-button')}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggleAccordion();
+            }}
+          >
+            подробнее
+            <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
+          </button>
+        )}
         {badge?.isShown && (
           <div
             className={`${e('badge-wrapper')} ${onClick || badge.onBadgeClick ? 'card__badge-wrapper--clickable' : ''} ${(onClick || badge.onBadgeClick) && !isPaidContent && !isRecordingContent ? 'card__badge-wrapper--accessible' : ''} ${isPaidContent ? 'card__badge-wrapper--paid' : ''} ${isRecordingContent ? 'card__badge-wrapper--recording' : ''}`}
             onClick={handleBadgeClick}
+            style={{ display: 'none' }}
           >
             <div
               className={e('badge')}

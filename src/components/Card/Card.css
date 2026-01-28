@@ -1,13 +1,14 @@
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: 12px;
-  padding: 16px 20px;
+  border-radius: 25px;
+  padding: 12px 20px;
   transition: background-color 0.3s ease;
+  background-color: #ffffff;
 }
 
 .card--with-image {
-  padding: 0;
+  padding: 7px 7px 20px 7px;
   overflow: hidden;
 }
 
@@ -15,6 +16,8 @@
   width: 100%;
   height: 160px;
   overflow: hidden;
+  border-radius: 20px 20px 15px 15px;
+  margin-bottom: 10px;
 }
 
 .card__image {
@@ -23,15 +26,15 @@
   object-fit: cover;
 }
 
-.card--with-image .card__header {
-  padding: 16px 20px;
-}
+/* Removed - padding now handled by .card--with-image */
 
 .card__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  /* width: 100%; */
+  gap: 12px;
+  margin-left: 7px;
+  margin-right: 7px;
 }
 
 .card__content {
@@ -43,21 +46,19 @@
 }
 
 .card__title {
-  color: #ffffff;
+  color: #000000;
   font-size: 16px;
   font-weight: 400;
   transition: color 0.3s ease;
 }
 
 .card__lessons-qty {
-  color: #ffffff;
+  color: #666666;
   font-size: 13px;
   font-weight: 400;
 }
 
-.card--open .card__lessons-qty {
-  color: #000000;
-}
+/* Removed - color is now always #666666 */
 
 .card__subtitle {
   color: #888888;
@@ -81,6 +82,43 @@
 .card__arrow {
   display: inline-flex;
   align-items: center;
+}
+
+/* Blue "подробнее" button - shown when accordion is closed */
+.card__details-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: auto;
+  min-width: 120px;
+  padding: 8px 16px;
+  margin-top: 0;
+  background-color: #2196f3;
+  color: #ffffff;
+  border: none;
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+  height: fit-content;
+}
+
+.card__details-button:hover {
+  background-color: #1976d2;
+}
+
+.card__details-button:active {
+  background-color: #0d47a1;
+}
+
+/* Hide "подробнее" button when accordion is open */
+.card--open .card__details-button {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .card__badge-wrapper {
@@ -163,15 +201,9 @@
   border-top: 1px solid #dddddd;
 }
 
-/* Открытый аккордеон - белый фон */
-.card--open {
-  background-color: #ffffff !important;
-}
+/* Removed - background is now always white */
 
-.card--open .card__title {
-  color: #000000;
-  font-weight: 500;
-}
+/* Removed - title color is now always black */
 
 .card--open .card__subtitle {
   color: #666666;

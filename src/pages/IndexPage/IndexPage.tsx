@@ -86,8 +86,6 @@ export const IndexPage: FC = () => {
                 key={tour._id}
                 image={tour.imgMainTour}
                 title={tour.title}
-                subtitle='подробнее'
-                // subtitle={tour.shortDescription || ''}
                 isAccordion
                 accordionContent={
                   <>
